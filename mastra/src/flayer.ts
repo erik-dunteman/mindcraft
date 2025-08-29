@@ -1,4 +1,4 @@
-const mineflayer = require("mineflayer");
+import mineflayer from "mineflayer";
 
 const options = {
   host: "localhost", // Change this to the ip you want.
