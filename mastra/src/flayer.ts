@@ -17,6 +17,7 @@ bot.once("login", () => {
 bot.once("spawn", () => {
   console.log("[mc] Spawned into the world");
   mineflayerViewer(bot, { port: 3000, firstPerson: false });
+  console.log("viewer running at http://localhost:3000");
 });
 
 bot.on("kicked", (reason, loggedIn) => {
