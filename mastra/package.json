@@ -22,6 +22,7 @@
     "@mastra/libsql": "^0.13.7",
     "@mastra/loggers": "^0.10.9",
     "@mastra/memory": "^0.14.2",
+    "canvas": "^3.2.0",
     "mineflayer": "^4.32.0",
     "prismarine-viewer": "^1.33.0",
     "zod": "^3.25.76"
