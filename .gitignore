@@ -1,3 +1,6 @@
+# Minecraft
+server-data/*
+
 # Logs
 logs
 *.log
