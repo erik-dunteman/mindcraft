@@ -8,6 +8,7 @@ services:
     environment:
       EULA: "TRUE"
       VERSION: "1.21.4"
+      ONLINE_MODE: "FALSE"
     volumes:
       # attach the relative directory 'data' to the container's /data path
       - ./server-data:/data
