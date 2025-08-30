@@ -1,4 +1,5 @@
 import mineflayer from "mineflayer";
+import pathfinderModule from "mineflayer-pathfinder";
 import { mineflayer as mineflayerViewer } from "prismarine-viewer";
 
 const options = {
@@ -10,6 +11,11 @@ const options = {
 
 export const bot = mineflayer.createBot(options);
 
+//Destructure stuff because import is stupid
+const { pathfinder, Movements, goals } = pathfinderModule;
+
+bot.loadPlugin(pathfinder);
+
 bot.once("login", () => {
   console.log("[mc] Logged in as", bot.username);
 });
@@ -19,10 +25,26 @@ bot.once("spawn", () => {
   mineflayerViewer(bot, { port: 3000, firstPerson: false });
   console.log("viewer running at http://localhost:3000");
 
-  setInterval(() => {
-    bot.setControlState("jump", true);
-    bot.setControlState("jump", false);
-  }, 3000);
+  const defaultMove = new Movements(bot);
+
+  bot.on("chat", (username, message) => {
+    if (username === bot.username) return;
+    if (message !== "come") return;
+
+    const target = bot.players[username]?.entity;
+    if (!target) {
+      bot.chat("I don't see you !");
+      return;
+    }
+
+    const { x: playerX, y: playerY, z: playerZ } = target.position;
+    const RANGE_GOAL = 1;
+
+    bot.pathfinder.setMovements(defaultMove);
+    bot.pathfinder.setGoal(
+      new goals.GoalNear(playerX, playerY, playerZ, RANGE_GOAL)
+    );
+  });
 });
 
 bot.on("kicked", (reason, loggedIn) => {
@@ -32,3 +54,7 @@ bot.on("kicked", (reason, loggedIn) => {
 bot.on("error", (err) => {
   console.error("[mc] Error:", err);
 });
+
+export const sendChatMessage = (message: string) => {
+  bot.chat(message);
+};

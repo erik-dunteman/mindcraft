@@ -39,14 +39,7 @@ const agent = createStep({
   inputSchema: loggedInState,
   outputSchema: loggedInState,
   execute: async ({ inputData }) => {
-    const agent = new Agent({
-      name: "Sub Agent",
-      instructions: `You are a helpful assistant that can help with tasks.`,
-      model: openai("gpt-4o-mini"),
-   tools:
-    });
-    const result = await agent.generate(inputData.task);
-    console.log(result);
+    console.log("running agent");
     return inputData;
   },
 });

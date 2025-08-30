@@ -10,6 +10,10 @@
     "noEmit": true,
     "outDir": "dist",
     "sourceMap": true
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
   },
   "include": [
     "src/**/*"
