@@ -1,4 +1,5 @@
 import { createTool } from "@mastra/core/tools";
+import { bot } from "../../flayer";
 import { z } from "zod";
 
 interface GeocodingResponse {
@@ -8,6 +9,7 @@ interface GeocodingResponse {
     name: string;
   }[];
 }
+
 interface WeatherResponse {
   current: {
     time: string;

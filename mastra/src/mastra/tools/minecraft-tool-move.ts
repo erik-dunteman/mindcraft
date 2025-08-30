@@ -1,13 +1,15 @@
 import { createTool } from "@mastra/core/tools";
 import { z } from "zod";
 import { bot } from "../../flayer";
-import pathfinderModule from 'mineflayer-pathfinder';
+import pathfinderModule from "mineflayer-pathfinder";
+import { Vec3 } from "vec3";
 
-const { goals } = pathfinderModule;
+const { goals, Movements } = pathfinderModule;
 
 export const moveTool = createTool({
   id: "move-to-coordinates",
-  description: "Move the bot to a specific set of coordinates, these are a absolute set of coordinates, if you want to do a relative move, first call the getLocation tool and calculate relative to that",
+  description:
+    "Move the bot to a specific set of coordinates, these are a absolute set of coordinates, if you want to do a relative move, first call the getLocation tool and calculate relative to that",
   inputSchema: z.object({
     x: z.number(),
     y: z.number(),
@@ -19,6 +21,8 @@ export const moveTool = createTool({
   execute: async ({ context }) => {
     const { x, y, z } = context;
     bot.pathfinder.setGoal(new goals.GoalBlock(x, y, z));
-    return { message: `Moving to coordinates: ${x}, ${y}, ${z}` };
+    return {
+      message: `Moving to coordinates: ${x}, ${y}, ${z}..., monitor status with locationTool`,
+    };
   },
 });
