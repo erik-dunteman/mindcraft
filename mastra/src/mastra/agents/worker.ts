@@ -5,6 +5,7 @@ import { moveTool } from "../tools/minecraft-tool-move";
 import { locationTool } from "../tools/minecraft-get-location";
 import { findBlockTool } from "../tools/minecraft-tool-find-block";
 import { stopMoveTool } from "../tools/minecraft-tool-stop-move";
+import { screenshotTool } from "../tools/minecraft-screenshot";
 
 export const workerAgent = new Agent({
   name: "Worker Agent",
@@ -13,5 +14,12 @@ export const workerAgent = new Agent({
     The move tool is executed async, monitor its status with the locationTool. Use the stopMoveTool if the character seems stuck.
 `,
   model: openai("gpt-4o-mini"),
-  tools: { worldTool, findBlockTool, moveTool, stopMoveTool, locationTool },
+  tools: {
+    worldTool,
+    findBlockTool,
+    moveTool,
+    stopMoveTool,
+    locationTool,
+    screenshotTool,
+  },
 });

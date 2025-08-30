@@ -1,6 +1,7 @@
 import mineflayer from "mineflayer";
 import pathfinderModule from "mineflayer-pathfinder";
 import { mineflayer as mineflayerViewer } from "prismarine-viewer";
+import { initChromium, screenshot } from "./chromium";
 
 const options = {
   host: "localhost", // Change this to the ip you want.
@@ -20,10 +21,12 @@ bot.once("login", () => {
   console.log("[mc] Logged in as", bot.username);
 });
 
-bot.once("spawn", () => {
+bot.once("spawn", async () => {
   console.log("[mc] Spawned into the world");
-  mineflayerViewer(bot, { port: 3000, firstPerson: false });
-  console.log("viewer running at http://localhost:3000");
+  mineflayerViewer(bot, { port: 3000, firstPerson: true });
+  await initChromium();
+  console.log("[mc] viewer running at http://localhost:3000");
+  await screenshot();
 
   const defaultMove = new Movements(bot);
 
