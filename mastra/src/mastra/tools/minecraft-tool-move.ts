@@ -20,10 +20,9 @@ export const moveTool = createTool({
   }),
   execute: async ({ context }) => {
     const { x, y, z } = context;
-    // ensure movements are configured for pathfinding
-    bot.pathfinder.setMovements(new Movements(bot));
-    // use goto which resolves when the goal is reached
-    await bot.pathfinder.goto(new goals.GoalBlock(x, y, z));
-    return { message: `Arrived at coordinates: ${x}, ${y}, ${z}` };
+    bot.pathfinder.setGoal(new goals.GoalBlock(x, y, z));
+    return {
+      message: `Moving to coordinates: ${x}, ${y}, ${z}..., monitor status with locationTool`,
+    };
   },
 });
