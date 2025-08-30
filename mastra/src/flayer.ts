@@ -1,12 +1,12 @@
 import mineflayer from "mineflayer";
-import pathfinderModule from 'mineflayer-pathfinder';
+import pathfinderModule from "mineflayer-pathfinder";
 import { mineflayer as mineflayerViewer } from "prismarine-viewer";
 
 const options = {
   host: "localhost", // Change this to the ip you want.
   port: 25565, // Change this to the port you want.
   username: "Bot",
-  auth: "offline",
+  auth: "offline" as const,
 };
 
 export const bot = mineflayer.createBot(options);
@@ -22,14 +22,14 @@ bot.once("login", () => {
 
 bot.once("spawn", () => {
   console.log("[mc] Spawned into the world");
-  //mineflayerViewer(bot, { port: 3000, firstPerson: false });
+  mineflayerViewer(bot, { port: 3000, firstPerson: false });
   console.log("viewer running at http://localhost:3000");
 
   const defaultMove = new Movements(bot);
 
-  bot.on('chat', (username, message) => {
+  bot.on("chat", (username, message) => {
     if (username === bot.username) return;
-    if (message !== 'come') return;
+    if (message !== "come") return;
 
     const target = bot.players[username]?.entity;
     if (!target) {
@@ -41,7 +41,9 @@ bot.once("spawn", () => {
     const RANGE_GOAL = 1;
 
     bot.pathfinder.setMovements(defaultMove);
-    bot.pathfinder.setGoal(new goals.GoalNear(playerX, playerY, playerZ, RANGE_GOAL));
+    bot.pathfinder.setGoal(
+      new goals.GoalNear(playerX, playerY, playerZ, RANGE_GOAL)
+    );
   });
 });
 
