@@ -1,18 +1,20 @@
 import { openai } from '@ai-sdk/openai';
 import { Agent } from '@mastra/core/agent';
 import { minecraftTool } from '../tools/minecraft-tool-chat';
-import { attackTool } from '../tools/minecraft-tool-attack';
+import { startAutoFightTool } from '../tools/minecraft-tool-attack';
+import { stopAutoFightTool } from '../tools/minecraft-tool-attack';
 import { worldTool } from '../tools/minecraft-tool-world';
 import { moveTool } from '../tools/minecraft-tool-move';
 import { locationTool } from '../tools/minecraft-get-location';
 import { scratchpadTool } from '../tools/minecraft-scratchpad-tool';
+import { inventoryTool } from '../tools/minecraft-get-inventory';
 import { findBlockTool } from '../tools/minecraft-tool-find-block';
 
 export const minecraftAgent = new Agent({
   name: 'Minecraft Agent',
   instructions: `
       You are a Minecraft assistant that can interact with the Minecraft world.
-
+]
       ## MANDATORY PLANNING PROCESS:
       Before taking ANY actions, you MUST use the 'scratch-pad-tool' to create a detailed plan. This is absolutely required for every task.
 
@@ -46,5 +48,5 @@ export const minecraftAgent = new Agent({
       REMEMBER: Always plan first with scratch-pad-tool, then execute your plan step by step!
   `,
   model: openai('gpt-4o-mini'),
-  tools: { minecraftTool, attackTool, worldTool, moveTool, locationTool, scratchpadTool, findBlockTool },
+  tools: { minecraftTool, startAutoFightTool, stopAutoFightTool, worldTool, moveTool, locationTool, scratchpadTool, findBlockTool },
 });
